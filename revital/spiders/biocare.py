@@ -14,10 +14,9 @@ class BiocareSpider(scrapy.Spider):
         for url in urls:
             yield scrapy.Request(url = url, callback=self.parse_details)
         #following pagination links
-        i = 1
-        base_url = 'http://www.revital.co.uk/biocare?limit=100&p={}'
-        next_page_url = base_url.format(i + 1)
-        if next_page_url:
+        for i in range(2,4):
+            base_url = 'http://www.revital.co.uk/biocare?limit=100&p={}'
+            next_page_url = base_url.format(i)
             yield scrapy.Request(url = next_page_url,callback = self.parse)
 
 
